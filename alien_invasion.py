@@ -235,8 +235,8 @@ class AlienInvasion:
 
     def _update_screen(self):
         """Updates the images on the screen and displays a new screen"""
-        bg = pygame.image.load('images/hell.jpg')
-        self.screen.blit(bg, (0, 0))
+        self.bg = pygame.image.load('images/backgrounds/3.jpg')
+        self.screen.blit(self.bg, (0, 0))
         self.ship.blitme()
         for bullet in self.bullets.sprites():
             bullet.draw_bullet()

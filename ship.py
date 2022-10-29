@@ -11,7 +11,7 @@ class Ship(Sprite):
         self.settings = ai_game.settings
         self.screen_rect = ai_game.screen.get_rect()
         # Loading the ship image and the rect
-        self.image = pygame.image.load('images/spaceship.png')
+        self.image = pygame.image.load('images/characters/spaceship.png')
         self.rect = self.image.get_rect()
         # Every new ship at the bottom of the screen
         self.rect.midbottom = self.screen_rect.midbottom
