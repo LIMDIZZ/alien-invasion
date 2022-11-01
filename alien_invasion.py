@@ -14,9 +14,17 @@ from scoreboard import Scoreboard
 class AlienInvasion:
     """Resource management and game behaviour"""
     def __init__(self):
+        pygame.mixer.pre_init(44100, -16, 1, 512)
         pygame.init()
-        self.settings = Settings()
+        pygame.mixer.music.load('audio/deathkllr84-forever-mine.mp3')
+        pygame.mixer.music.play()
+        pygame.mixer.music.queue('audio/Deathkllr84_-_Sacrifice.mp3')
+        self.s = pygame.mixer.Sound('audio/explosion_sound.ogg')
+        self.s.set_volume(0.6)
 
+        self.FPS = 120
+        self.clock = pygame.time.Clock()
+        self.settings = Settings()
         self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
         self.settings.screen_width = self.screen.get_rect().width
         self.settings.screen_height = self.screen.get_rect().height
@@ -59,6 +67,7 @@ class AlienInvasion:
     def run_game(self):
         """Game's main cycle"""
         while True:
+            self.clock.tick(self.FPS)
             self._check_events()
         # The screen is redrawn every time the cycle passes
             if self.stats.game_active:
@@ -93,6 +102,8 @@ class AlienInvasion:
     def _ship_hit(self):
         """Handles the collision of a ship with an alien"""
         if self.stats.ships_left > 0:
+            pygame.mixer.music.pause()
+            self.s.play()
             # Reducing ships_left and update scoreboard
             self.stats.ships_left -= 1
             self.sb.prep_ships()
@@ -107,6 +118,7 @@ class AlienInvasion:
 
             # pause
             sleep(1)
+            pygame.mixer.music.unpause()
         else:
             self.stats.game_active = False
             pygame.mouse.set_visible(True)
@@ -120,6 +132,7 @@ class AlienInvasion:
         if collisions:
             for aliens in collisions.values():
                 self.stats.score += self.settings.alien_points
+            self.s.play()
             self.sb.prep_score()
             self.sb.check_high_score()
         if not self.aliens:
