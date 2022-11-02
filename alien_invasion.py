@@ -19,6 +19,7 @@ class AlienInvasion:
         pygame.mixer.music.load('audio/deathkllr84-forever-mine.mp3')
         pygame.mixer.music.play()
         pygame.mixer.music.queue('audio/Deathkllr84_-_Sacrifice.mp3')
+        pygame.mixer.music.queue('audio/deathkllr84-explore-your-mind.mp3')
         self.s = pygame.mixer.Sound('audio/explosion_sound.ogg')
         self.s.set_volume(0.6)
 
